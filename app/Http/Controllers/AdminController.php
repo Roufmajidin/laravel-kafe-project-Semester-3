@@ -48,10 +48,9 @@ class AdminController extends Controller
     public function kirim_pesan_user(Request $request, $id)
     {
         $pesanan_detail = PesananDetail::where('id', $id)->first();
-        $pesanan_detail->status = $request->isi_pesan;
+        $pesanan_detail->status = $request->status;
 
         $pesanan_detail->update();
-        // Toastr::success(' Sukes melakukan Approve', 'Title', ["positionClass" => "toast-top-right"]);
 
         return redirect('/data-pesanan');
     }

@@ -44,10 +44,16 @@
 
 
                         @if ($data->status == 1)
-                            <td><a href="/kirim_pesan/{{ $data->id }}" class="btn btn-success"><i class="fas fa-check">
+                            <td><a href="/kirim_pesan/{{ $data->id }}" class="btn btn-success"><i class="fas fa-check">Selesai
                             </td>
                         @else
-                            <td><a href="/kirim_pesan/{{ $data->id }}" class="btn btn-danger"><i class="fas fa-check">
+                            <td>
+                            <form action="/kirim_pesanUser/{{$data->id}}" method="post">
+                            @csrf
+                            <input type="hidden" name="status" value="1" >
+                            <button type="submit" class="btn btn-primary">konfirm</button>
+                            </form>
+
                             </td>
                         @endif
                     </tr>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,43 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+//middleware (hak akses)
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::group(['middleware' => 'admin'], function() {
+
+        Route::get('/data-produk', [AdminController::class, 'index']);
+        Route::get('/data-user', [AdminController::class, 'user']);
+        Route::get('/data-pesanan', [AdminController::class, 'data_pesanan']);
+        Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
+        Route::get('/kirim_pesan/{id}', [AdminController::class, 'kirim_pesan']);
+        Route::post('/kirim_pesanUser/{id}', [AdminController::class, 'kirim_pesan_user']);
+        Route::get('/tambah-produk', function () {
+            return view('admin.tambah-produk');
+        });
+        Route::get('/edit/{id}', [AdminController::class, 'edit']);
+        Route::patch('/edit-proses/{id}', [AdminController::class, 'edit_proses']);
+        Route::get('/req', [AdminController::class, 'req']);
+
+
+        Route::post('/tambah-produk', [AdminController::class, 'store_menu']);
+        Route::get('/hapus/{id}', [AdminController::class, 'delete']);
+        Route::get('/get', [AdminController::class, 'c']);
+
+
+
+    });
+ Route::get('/tambah-menu', function () {
+            $menu = new App\Models\Menu();
+            $menu->nama_menu = 'Burger';
+            $menu->stok = '12';
+            $menu->foto = 'thumbnail/satu.jpg';
+            $menu->harga = '12000';
+
+
+            $menu->save;
+
+            return 'ok';
+
+
+
+        });

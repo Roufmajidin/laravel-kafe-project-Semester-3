@@ -14,5 +14,6 @@ class Menu extends Model
         'nama_menu',
         'stok',
         'harga',
+        'foto',
     ];
 }

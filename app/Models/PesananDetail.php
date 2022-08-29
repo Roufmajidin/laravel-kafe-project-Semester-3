@@ -15,5 +15,12 @@ class PesananDetail extends Model
         'harga',
         'jumlahOrder',
         'keterangan',
+        'status',
     ];
+
+    public function menu()
+    {
+
+        return $this->belongsTo(Menu::class, 'menu_id', 'id');
+    }
 }

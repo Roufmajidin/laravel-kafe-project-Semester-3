@@ -43,16 +43,24 @@
                         <td>{{ $data->keterangan }}</td>
 
 
-                        @if ($data->status == 1)
-                            <td><a href="/kirim_pesan/{{ $data->id }}" class="btn btn-success"><i class="fas fa-check">Selesai
+                        @if ($data->status == 0)
+                            <td class="activateDiv">
+                                <button id="activateButton" type="submit" class="btn btn-primary activateButton"
+                                    data-id="{{ $data->id }}">konfirm</button>
+
                             </td>
+
+
+                            <td class="deactivateDiv" style="display: none">
+                                <button id="activateButton" type="submit" class="btn btn-success activateButton"
+                                    data-id="{{ $data->id }}">Selesai</button>
+
+                            </td>
+
                         @else
-                            <td>
-                            <form action="/kirim_pesanUser/{{$data->id}}" method="post">
-                            @csrf
-                            <input type="hidden" name="status" value="1" >
-                            <button type="submit" class="btn btn-primary">konfirm</button>
-                            </form>
+                           <td class="deactivateDiv">
+                                <button id="activateButton" type="submit" class="btn btn-success activateButton"
+                                    data-id="{{ $data->id }}">Selesai</button>
 
                             </td>
                         @endif
@@ -66,16 +74,33 @@
     </div>
     </div>
 
+@endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.activateButton').on('click', function() {
+            const id = $(this).data('id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('kirim_pesanUser') }}',
+                data: {
+                    id: id
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    // console.log("masuk");
+                    $('.activateDiv').hide();
+                    $('.deactivateDiv').show();
 
 
+                }
 
+            });
 
+        })
 
-
-
-
-
-
-
-
-@stop
+    });
+</script>

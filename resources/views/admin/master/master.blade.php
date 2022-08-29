@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Admin Page &mdash;</title>
 
   <!-- General CSS Files -->
@@ -326,7 +327,7 @@
   <script src="{{ asset('style_adminPage/js/custom.js') }}"></script>
   <!-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> -->
   <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-    <script src="jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         {{-- {!! Toastr::message() !!} --}}
 </body>

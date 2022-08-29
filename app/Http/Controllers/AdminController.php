@@ -45,14 +45,20 @@ class AdminController extends Controller
         return view('admin.kirim_pesan', compact('penerima'));
     }
 
-    public function kirim_pesan_user(Request $request, $id)
+    public function kirim_pesan_user(Request $request)
     {
-        $pesanan_detail = PesananDetail::where('id', $id)->first();
-        $pesanan_detail->status = $request->status;
+        $pesanan_detail = PesananDetail::where('id', $request->id)->first();
+        // $pesanan_detail->status = $request->status;
 
-        $pesanan_detail->update();
+        $pesanan_detail->update([
+        'status' => 1
+        ]);
 
-        return redirect('/data-pesanan');
+        // return redirect('/data-pesanan');
+        return response()->json([
+            'status' => 1
+
+        ]);
     }
 
     public function data_pesanan()

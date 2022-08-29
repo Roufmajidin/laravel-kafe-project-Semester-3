@@ -32,7 +32,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
         Route::get('/data-pesanan', [AdminController::class, 'data_pesanan']);
         Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
         Route::get('/kirim_pesan/{id}', [AdminController::class, 'kirim_pesan']);
-        Route::post('/kirim_pesanUser/{id}', [AdminController::class, 'kirim_pesan_user']);
+        Route::post('/admin/kirim_pesanUser', [AdminController::class, 'kirim_pesan_user'])->name('kirim_pesanUser');
         Route::get('/tambah-produk', function () {
             return view('admin.tambah-produk');
         });

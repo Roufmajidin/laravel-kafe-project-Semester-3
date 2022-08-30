@@ -17,7 +17,8 @@
   <link rel="stylesheet" href="{{ asset('style_adminPage/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('style_adminPage/css/components.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/toast/toastr.min.css') }}">
-
+{{-- 2 --}}
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <!-- Start GA -->
 
 <script>
@@ -329,6 +330,11 @@
   <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+  {{-- 2 --}}
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
         {{-- {!! Toastr::message() !!} --}}
+
+    @stack('scripts')
 </body>
 </html>

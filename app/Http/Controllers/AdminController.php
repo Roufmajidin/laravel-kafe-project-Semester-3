@@ -47,16 +47,13 @@ class AdminController extends Controller
 
     public function kirim_pesan_user(Request $request)
     {
-        $pesanan_detail = PesananDetail::where('id', $request->id)->first();
-        // $pesanan_detail->status = $request->status;
-
-        $pesanan_detail->update([
-        'status' => 1
-        ]);
+        $pesanan_detail = PesananDetail::find($request->user_id);
+        $pesanan_detail->status = $request->status;
+        $pesanan_detail->save();
 
         // return redirect('/data-pesanan');
         return response()->json([
-            'status' => 1
+
 
         ]);
     }

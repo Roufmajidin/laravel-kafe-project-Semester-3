@@ -24,6 +24,16 @@ class AdminController extends Controller
 
         return view('admin.index', compact('user', 'pesanan_detail', 'menu'));
     }
+    public function dataAjax()
+    {
+        $data = Menu::all();
+        // $user = User::all();
+        // $pesanan_detail = PesananDetail::get();
+        // $pesanan = Pesanan::all();
+
+        return response()->json($data);
+
+    }
     public function user()
     {
 

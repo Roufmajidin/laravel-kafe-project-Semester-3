@@ -21,15 +21,23 @@
 
     <div class="card">
         <table class="table">
-            <tr>
-                <th>nama menu
-                <th>
-                <th>Harga</th>
-                <th>keterangan</th>
-                <th>Aksi</th>
+            <thead>
+                <tr>
+                    <th>nama menu
 
-                @foreach ($menu as $i)
-            <tr style="font-size:12px;">
+                    <th>Harga</th>
+                    {{-- <th>keterangan</th> --}}
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+
+
+            {{-- @foreach ($menu as $i) --}}
+            {{-- <tr style="font-size:12px;">
                 <td>{{ $i->nama_menu }}</td>
                 <td><img src="{{ asset('storage/' . $i->foto) }}" style='width:100px'></td>
                 <td>Rp. {{ number_format($i->harga) }}</td>
@@ -37,15 +45,17 @@
                 <td>
                     {{-- <a href="/edit/{{ $i->id }}" class="btn-sm btn-success"><i class="fa fa-edit"
                             style="font-size:10px;"></i></a> --}}
-                    <button type="button" class="btn btn-primary hapus">hapus</button>
+            {{-- <button type="button" class="btn btn-primary hapus">hapus</button> --}}
 
-                </td>
+            {{-- </td> --}}
 
-            </tr>
-            @endforeach
+            {{-- </tr> --}}
+            {{-- @endforeach --}}
+
         </table>
     </div>
     </div>
+
     {{-- MODAL TAMBAH --}}
     <!-- Button trigger modal -->
     <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -110,16 +120,51 @@
                 success: function(e) {
                     // resetModal();
                     $(".close").click();
+                    semuaData();
                     // getDataFromDB();
                 }
             });
         });
+
+        function semuaData() {
+
+            $.ajax({
+                type: "GET",
+                datType: 'JSON',
+                url: "/data-produk-ajax",
+                success: function(response) {
+                    // console.log(data)
+                    var data = ""
+                    $.each(response, function(key, value) {
+                        // console.log(value.nama_menu);
+                        data = data + "<tr>"
+                        data = data + "<td>"+value.nama_menu+"</td>"
+                        data = data + "<td>"+value.harga+"</td>"
+
+                        data = data + "<td>"
+
+                        data = data +
+                            "<button type='button' class='btn btn-secondary' data-dismiss='modal'>hapus</button>"
+                        data = data +
+                            "<button type='button' class='btn btn-primary btnBuat'>Detail</button>"
+
+                        data = data + "</td>"
+
+                        data = data + "</tr>"
+
+
+                    })
+                    $('tbody').html(data);
+
+                }
+
+
+            })
+        }
+        semuaData();
         $(".hapus").on('click', function() {
             alert("hapus");
             console.log("halo");
         })
-
-
-        // });
     </script>
 @endpush

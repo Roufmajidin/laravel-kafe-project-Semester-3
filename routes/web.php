@@ -28,6 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::group(['middleware' => 'admin'], function() {
 
         Route::get('/data-produk', [AdminController::class, 'index']);
+        Route::get('/data-produk-ajax', [AdminController::class, 'dataAjax']);
         Route::get('/data-user', [AdminController::class, 'user']);
         Route::get('/data-pesanan', [AdminController::class, 'data_pesanan']);
         Route::get('/pelanggan', [AdminController::class, 'pelanggan']);

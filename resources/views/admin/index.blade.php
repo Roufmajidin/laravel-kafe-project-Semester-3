@@ -56,8 +56,6 @@
     </div>
     </div>
 
-    {{-- MODAL TAMBAH --}}
-    <!-- Button trigger modal -->
     <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -89,6 +87,27 @@
             </div>
         </div>
     </div>
+    {{-- modal delete konfirm --}}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p style="text-align: center">Menghapus <span class="isi"></span></p>
+                <input type="hidden" id="deleting_id">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btnKonfirmHapus">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -101,6 +120,40 @@
         $("#tambah").on('click', function() {
             $("#modalTambah").modal('show');
         });
+        $(document).on('click', '.hapus', function() {
+            // var id = $(this).val();
+            var id = $(this).val();
+            $('#deleteModal').modal('show');
+            $('#modalTitle').html('Delete data')
+            $('.isi').html(id);
+            $('#deleting_id').val(id)
+
+        })
+        $(document).on('click', '.btnKonfirmHapus', function(e) {
+            e.preventDefault();
+            $(this).text('Deleting..');
+            var id = $('#deleting_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "DELETE",
+                dataType: "JSON",
+                url: "hapus-menu/" + id,
+                success: function() {
+                    semuaData();
+                    $('.btnKonfirmHapus').html('yes');
+
+                    $('.close').click();
+                }
+
+            })
+
+        })
 
         $(".btnBuat").on('click', function() {
             var nama_menu = $("#nama_menu").val();
@@ -126,6 +179,8 @@
             });
         });
 
+        semuaData();
+
         function semuaData() {
 
             $.ajax({
@@ -134,37 +189,49 @@
                 url: "/data-produk-ajax",
                 success: function(response) {
                     // console.log(data)
-                    var data = ""
-                    $.each(response, function(key, value) {
-                        // console.log(value.nama_menu);
-                        data = data + "<tr>"
-                        data = data + "<td>"+value.nama_menu+"</td>"
-                        data = data + "<td>"+value.harga+"</td>"
+                    $('tbody').html("");
+                    $.each(response.data, function(key, item) {
+                        $('tbody').append('<tr>\
+                                        <td>' + item.nama_menu + '</td>\
+                                        <td>' + item.harga + '</td>\
+                                        <td><button type="button" value="' + item.id + '" class="btn btn-primary hapus">Hapus</button>\
+                                        <button type="button" value="' + item.id + '" class="btn btn-primary" id="">Edit</button></td>\
+                                        \</tr>');
 
-                        data = data + "<td>"
-
-                        data = data +
-                            "<button type='button' class='btn btn-secondary' data-dismiss='modal'>hapus</button>"
-                        data = data +
-                            "<button type='button' class='btn btn-primary btnBuat'>Detail</button>"
-
-                        data = data + "</td>"
-
-                        data = data + "</tr>"
+                    });
 
 
-                    })
-                    $('tbody').html(data);
+                    // bkUp
+                    // var data = ""
+                    // $.each(response, function(key, value) {
+                    //     // console.log(value.nama_menu);
+
+
+                    //     data = data + "<tr>"
+                    //     data = data + "<td>"+value.nama_menu+"</td>"
+                    //     data = data + "<td>"+value.harga+"</td>"
+
+                    //     data = data + "<td>"
+
+                    //     data = data +
+                    //         "<a href='#' class='btn btn-secondary hapusData'>hapus</a>"
+                    //     data = data +
+                    //         "<button type='button' class='btn btn-primary'>Detail</button>"
+
+                    //     data = data + "</td>"
+
+                    //     data = data + "</tr>"
+
+
+
+                    // })
+                    // $('tbody').html(data);
 
                 }
 
 
             })
         }
-        semuaData();
-        $(".hapus").on('click', function() {
-            alert("hapus");
-            console.log("halo");
-        })
+        // semuaData();
     </script>
 @endpush

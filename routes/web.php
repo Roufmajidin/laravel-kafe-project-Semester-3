@@ -44,7 +44,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
         Route::get('/req', [AdminController::class, 'req']);
 
 
-        Route::get('/hapus/{id}', [AdminController::class, 'delete']);
+        Route::delete('/hapus-menu/{id}', [AdminController::class, 'delete']);
         Route::get('/get', [AdminController::class, 'c']);
 
 

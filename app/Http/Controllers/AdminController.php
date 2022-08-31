@@ -31,8 +31,9 @@ class AdminController extends Controller
         // $pesanan_detail = PesananDetail::get();
         // $pesanan = Pesanan::all();
 
-        return response()->json($data);
-
+        return response()->json([
+            'data' => $data,
+        ]);
     }
     public function user()
     {
@@ -62,10 +63,7 @@ class AdminController extends Controller
         $pesanan_detail->save();
 
         // return redirect('/data-pesanan');
-        return response()->json([
-
-
-        ]);
+        return response()->json([]);
     }
 
     public function data_pesanan()
@@ -95,7 +93,6 @@ class AdminController extends Controller
 
 
         $menu->save();
-
     }
 
 
@@ -129,11 +126,12 @@ class AdminController extends Controller
     public function delete($id)
     {
 
-        $menu = Menu::where('id', $id);
+        $menu = Menu::find($id);
         $menu->delete();
 
 
-        return redirect('/data-produk');
+        // return redirect('/data-produk');
+        return response()->json();
     }
 
 

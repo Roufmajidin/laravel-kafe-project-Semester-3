@@ -326,9 +326,9 @@
   <!-- Template JS File -->
   <script src="{{ asset('style_adminPage/js/scripts.js') }}"></script>
   <script src="{{ asset('style_adminPage/js/custom.js') }}"></script>
-  <!-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> -->
+  {{-- <script src="{{ asset('assets/js/jquery.min.js') }}"></script> --}}
   <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 
   {{-- 2 --}}
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -336,5 +336,7 @@
         {{-- {!! Toastr::message() !!} --}}
 
     @stack('scripts')
+
+
 </body>
 </html>

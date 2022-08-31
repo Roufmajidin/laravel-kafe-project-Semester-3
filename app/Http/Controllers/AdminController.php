@@ -72,25 +72,20 @@ class AdminController extends Controller
     {
         //storage/app
 
-        $file_nm = $request->foto->getClientOriginalName();
-        $image = $request->foto->storeAs('foto_produk', $file_nm);
+        // $file_nm = $request->foto->getClientOriginalName();
+        // $image = $request->foto->storeAs('foto_produk', $file_nm);
 
         // dd('berhasil');
         $menu = new Menu;
         $menu->nama_menu = $request->nama_menu;
         $menu->harga = $request->harga;
-        $menu->stok = $request->stok;
+        // $menu->stok = $request->stok;
 
-        $menu->foto = $image;
+        // $menu->foto = $image;
 
 
         $menu->save();
 
-
-        return redirect('data-produk');
-        // dd($request->all());
-
-        return view('admin.pesanan_pelanggan');
     }
 
 

@@ -33,15 +33,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
         Route::get('/pelanggan', [AdminController::class, 'pelanggan']);
         Route::get('/kirim_pesan/{id}', [AdminController::class, 'kirim_pesan']);
         Route::get('/admin/kirim_pesanUser', [AdminController::class, 'kirim_pesan_user'])->name('kirim_pesanUser');
-        Route::get('/tambah-produk', function () {
-            return view('admin.tambah-produk');
-        });
+        // Route::get('/tambah-produk', function () {
+        //     return view('admin.tambah-produk');
+        // });
+        Route::post('/tambah-produk-proses', [AdminController::class, 'store_menu']);
+
         Route::get('/edit/{id}', [AdminController::class, 'edit']);
         Route::patch('/edit-proses/{id}', [AdminController::class, 'edit_proses']);
         Route::get('/req', [AdminController::class, 'req']);
 
 
-        Route::post('/tambah-produk', [AdminController::class, 'store_menu']);
         Route::get('/hapus/{id}', [AdminController::class, 'delete']);
         Route::get('/get', [AdminController::class, 'c']);
 
